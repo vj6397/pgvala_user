@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 class homescreenTile extends StatefulWidget {
-  homescreenTile({required this.Apartmentname,required this.locality,required this.rentPrice,required this.rate,required this.washrrom_status,required this.category,required this.tenant,required this.accomodation_type,required this.imgList});
+  homescreenTile({required this.Apartmentname,required this.locality,required this.rentPrice,required this.rate,required this.washrrom_status,required this.category,required this.tenant,required this.accomodation_type,required this.imgList,required this.perks});
   String Apartmentname;
   String locality;
   String rentPrice;
@@ -13,14 +13,17 @@ class homescreenTile extends StatefulWidget {
   String tenant;
   String accomodation_type;
   String imgList;
+  String perks;
 
 
   @override
   State<homescreenTile> createState() => _homescreenTileState();
+
 }
 
 class _homescreenTileState extends State<homescreenTile> {
   int currentindex=0;
+  List<String> items = [];
 
   final CarouselController carouselController = CarouselController();
 
@@ -28,6 +31,9 @@ class _homescreenTileState extends State<homescreenTile> {
     // {"id":1,"image_path":'assets/bed1.png'},
     // {"id":2,"image_path":'assets/bed2.png'},
   ];
+
+
+
   void get_images(){
     String jsonString =widget.imgList;
     Map<String, dynamic> jsonMap = json.decode(jsonString);
@@ -39,11 +45,13 @@ class _homescreenTileState extends State<homescreenTile> {
       imageAssets.add(imageData);
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     get_images();
+    items = widget.perks.split(',');
   }
 
 
@@ -149,11 +157,24 @@ class _homescreenTileState extends State<homescreenTile> {
                                   height: MediaQuery.of(context).size.height-80,
                                   padding: EdgeInsets.all(16),
                                   child: Column(
-                                    mainAxisSize: MainAxisSize.min,
+                                     mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('Aminities Listed'),
-                                      SizedBox(height: 20,),
+                                      // SizedBox(height: 10),
+                                      SingleChildScrollView(
+                                        child: Column(
+                                          children: items.map((value) => CheckboxListTile(
+                                            title: Text(value),
+                                            value: true,
+                                            onChanged: (newValue){
+                                              setState(() {
+
+                                              });
+                                            },
+                                          )).toList(),
+                                        ),
+                                      ),
                                       ElevatedButton(onPressed: (){Navigator.pop(context);},
                                           child: Text('Close'))
                                     ],
@@ -246,7 +267,7 @@ class _homescreenTileState extends State<homescreenTile> {
                   ),
                   SizedBox(height:10),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.person,size: 20,color: Color.fromARGB(255, 255, 48, 68)),
                       // SizedBox(width: 5,),
@@ -260,18 +281,18 @@ class _homescreenTileState extends State<homescreenTile> {
                       InkWell(
                         onTap: (){},
                         child: Container(
-                            width: 125,
-                            height: 50,
+                            width: 115,
+                            height: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.blue),
-                              // color: Color.fromARGB(255, 255, 48, 68),
+                              //border: Border.all(color: Colors.black),
+                              color: Color.fromARGB(255, 255,217,215),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Center(
                                 child: Text(
-                                  'Reserve Now',
+                                  'Schedule Visit',
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w300,

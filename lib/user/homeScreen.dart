@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:pgvala_user/user/hoomscreenTile.dart';
@@ -30,7 +29,7 @@ class _homeScreenState extends State<homeScreen> {
      setState(() {
        jsonData= jsonDecode(response.body);
        while(i<jsonData.length){
-         userRoom.add(homescreenTile(Apartmentname: jsonData[i]["apartment_name"], locality: jsonData[i]["locality"], rentPrice:jsonData[i]["rent_price"].toString(), rate: jsonData[i]["rate"], washrrom_status: jsonData[i]["washroom_status"], category: jsonData[i]["category"], tenant: jsonData[i]["tenant"], accomodation_type: jsonData[i]["accomotation_type"], imgList: jsonData[i]["images"]));
+         userRoom.add(homescreenTile(Apartmentname: jsonData[i]["apartment_name"], locality: jsonData[i]["locality"], rentPrice:jsonData[i]["rent_price"].toString(), rate: jsonData[i]["rate"], washrrom_status: jsonData[i]["washroom_status"], category: jsonData[i]["category"], tenant: jsonData[i]["tenant"], accomodation_type: jsonData[i]["accomotation_type"], imgList: jsonData[i]["images"],perks: jsonData[i]["perks"]??"No perks"));
          i++;
        }
        print(jsonData[0]["rent_price"]);
