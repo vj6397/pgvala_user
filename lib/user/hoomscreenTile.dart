@@ -75,7 +75,7 @@ class _homescreenTileState extends State<homescreenTile> {
                     child: CarouselSlider(
                       items: imageAssets.map(
                               (item) => Image.network(
-                                'https://pgvala.s3.amazonaws.com/${item["image_path"]}',
+                            'https://pgvala.s3.amazonaws.com/${item["image_path"]}',
                             fit: BoxFit.cover,
                             width: double.infinity,
                           )
@@ -157,7 +157,7 @@ class _homescreenTileState extends State<homescreenTile> {
                                   height: MediaQuery.of(context).size.height-80,
                                   padding: EdgeInsets.all(16),
                                   child: Column(
-                                     mainAxisSize: MainAxisSize.min,
+                                    mainAxisSize: MainAxisSize.min,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text('Aminities Listed'),

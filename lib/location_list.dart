@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // import 'package:pgvala_saleperson/Api/request_util.dart';
 
 final keyVal='Login';
+var ktoken;
 List states=['Chhattisgarh'];
 List cities=['Bhilai','Raipur'];
 List localities=['Risali','Nehru Nagar','Sector 10','Smriti Nagar','Kohka','Ashish Nagar'];

@@ -134,9 +134,8 @@ class _OtpVerifyState extends State<OtpVerify> {
                           shr.setBool(keyVal, true);
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>selectCity()));
                         }
-
                         else{
-                          print('hello');
+                          print(res.body);
                           Fluttertoast.showToast(
                               msg: "Invalid OTP",
                               toastLength: Toast.LENGTH_SHORT,

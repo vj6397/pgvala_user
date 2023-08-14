@@ -2,10 +2,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
+import 'package:pgvala_user/Navigate/navigate.dart';
 import 'package:pgvala_user/user/homeScreen.dart';
 
 import 'Api/requestUtil.dart';
-
 
 class selectCity extends StatefulWidget {
   const selectCity({super.key});
@@ -115,7 +115,7 @@ class _selectCityState extends State<selectCity> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>homeScreen(city: dropdownvalue!)));
+                      Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationScreen(currIndx: 0, city:dropdownvalue!)));
                     },
                     child: Container(
                       height: 38,

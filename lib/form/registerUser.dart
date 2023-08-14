@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pgvala_user/Api/requestUtil.dart';
 import 'package:pgvala_user/login/otp_verification.dart';
 import 'package:pgvala_user/selectCity.dart';
+import 'package:http/http.dart'as http;
 
 import '../location_list.dart';
 
@@ -25,6 +28,8 @@ class _registerUserState extends State<registerUser> {
   List radioOptionProfession=['Student','Working professional','self employed','freelancer'];
   String? selectedOptionProfessionStatus;
 
+  RequestUtil util=new RequestUtil();
+
   var course_list=course;
   String dropdownvalue=course.first;
 
@@ -36,6 +41,14 @@ class _registerUserState extends State<registerUser> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Container(
+                margin: EdgeInsets.only(left:MediaQuery.of(context).size.width/2-80,top: 30),
+                child: Text(
+                  'Register Yourself',
+                  style: GoogleFonts.notoSans(
+                      fontWeight: FontWeight.w600, fontSize: 20),
+                ),
+              ),
               Container(
                 margin: EdgeInsets.only(top: 15),
                 child: Column(
@@ -239,7 +252,7 @@ class _registerUserState extends State<registerUser> {
                                     .black, // Set the desired border width here
                               ),
                             ),
-                            hintText: 'Enter DOB'),
+                            hintText: 'dd-mm-yyyy'),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -275,7 +288,7 @@ class _registerUserState extends State<registerUser> {
                     Container(
                       margin: EdgeInsets.only(left: 15),
                       child: Text(
-                        'Working plce details',
+                        'Working place details',
                         style: GoogleFonts.notoSans(
                             fontWeight: FontWeight.w600, fontSize: 12),
                       ),
@@ -357,8 +370,38 @@ class _registerUserState extends State<registerUser> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: (){
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=>selectCity()));
+                            onTap: ()async{
+                              http.Response res=await util.register_user(name,contact,city,state,address,'username',dob,radioOptionProfession.toString(),working_place,dropdownvalue);
+                              if(res.statusCode==200){
+                                print(res.body);
+                                http.Response res1=await util.resendOtp(contact);
+                                if(res1.statusCode==200&&contact!=''){
+                                  print(res1.body);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=>OtpVerify(number: contact)));
+                                }
+                                else {
+                                  print(res1.body);
+                                  Fluttertoast.showToast(
+                                    msg: 'Enter valid details',
+                                    toastLength: Toast.LENGTH_SHORT, // Duration of the toast
+                                    gravity: ToastGravity.BOTTOM,    // Position on the screen
+                                    backgroundColor: Colors.black54, // Background color of the toast
+                                    textColor: Colors.white,         // Text color of the toast message
+                                    fontSize: 16.0,                 // Font size of the toast message
+                                  );
+                                }
+                              }
+                              else{
+                                print(res.body);
+                                Fluttertoast.showToast(
+                                  msg: 'Enter valid details',
+                                  toastLength: Toast.LENGTH_SHORT, // Duration of the toast
+                                  gravity: ToastGravity.BOTTOM,    // Position on the screen
+                                  backgroundColor: Colors.black54, // Background color of the toast
+                                  textColor: Colors.white,         // Text color of the toast message
+                                  fontSize: 16.0,                 // Font size of the toast message
+                                );
+                              }
                             },
                             child: Container(
                               height: 38,width: 114,

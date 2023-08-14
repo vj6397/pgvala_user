@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pgvala_user/utils/utils.dart';
 import 'package:intl/intl.dart';
+import 'package:pgvala_user/Api/requestUtil.dart';
+import 'package:pgvala_user/utils/utils.dart';
+import 'package:http/http.dart'as http;
+
+import '../user/landlordDetails.dart';
 
 
 class scheduleVisit extends StatefulWidget {
-  const scheduleVisit({super.key});
+  scheduleVisit({required this.accid,required this.roomid});
+  String accid;
+  String roomid;
 
   @override
   State<scheduleVisit> createState() => _scheduleVisitState();
@@ -16,6 +22,8 @@ class _scheduleVisitState extends State<scheduleVisit> {
   String dropdownvaluegender=gender.first;
   var duration_list=duration;
   String dropdownduration=duration.first;
+  String formattedDate="";
+  String formattedTime="";
   DateTime selectedDateTime = DateTime.now();
   Future<void> _selectDates(BuildContext context)async {
     final DateTime? picked = await showDatePicker(
@@ -26,8 +34,9 @@ class _scheduleVisitState extends State<scheduleVisit> {
     );
     if (picked != null && picked != selectedDateTime) {
       setState(() {
+        formattedDate = DateFormat('yyyy-MM-dd').format(picked);
         selectedDateTime = picked;
-        print(selectedDateTime);
+        print(formattedDate);
       });
     }
   }
@@ -47,10 +56,13 @@ class _scheduleVisitState extends State<scheduleVisit> {
           picked.hour,
           picked.minute,
         );
-        print(selectedDateTime);
+        formattedTime = picked.format(context);
+        print(formattedTime);
       });
     }
   }
+
+  RequestUtil util=new RequestUtil();
 
   @override
   Widget build(BuildContext context) {
@@ -288,7 +300,20 @@ class _scheduleVisitState extends State<scheduleVisit> {
                           borderRadius: BorderRadius.circular(13),
                       ),
                       child: InkWell(
-                        onTap: (){},
+                        onTap: ()async{
+                          http.Response res= await util.shedule_visit(formattedDate, widget.accid, widget.roomid,formattedTime);
+                          print(res.body);
+                          if(res.statusCode==200){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>landlordDetails(accid: widget.accid)));
+                          }
+                          else{
+                            print(res.statusCode);
+                          }
+                          //print(formattedTime);
+                          // print(widget.accid);
+                          // print(widget.roomid);
+                          // print(formattedDate);
+                        },
                         child: Center(child: Text('Schedule Now')),
                       ),
                     ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:pgvala_user/Api/requestUtil.dart';
-import '../circularIndicatorPage/circularIndicatorPage.dart';
+import 'package:pgvala_user/circularProgressIndicator/circularIndicatorPage.dart';
 
 
 class bookingTile extends StatefulWidget {
@@ -107,7 +107,6 @@ class _bookingTileState extends State<bookingTile> {
                       ],
                     ),
                   ),
-
                   Divider(),
                   Container(
                     width: MediaQuery.of(context).size.width-20,
