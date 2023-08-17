@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:pgvala_user/form/scheduleVisit.dart';
+import 'package:pgvala_user/user/landlordDetails.dart';
 
 class homescreenTile extends StatefulWidget {
-  homescreenTile({required this.Apartmentname,required this.locality,required this.rentPrice,required this.rate,required this.washrrom_status,required this.category,required this.tenant,required this.accomodation_type,required this.imgList,required this.perks});
+  homescreenTile({required this.Apartmentname,required this.locality,required this.rentPrice,required this.rate,required this.washrrom_status,required this.category,required this.tenant,required this.accomodation_type,required this.imgList,required this.perks,required this.accid,required this.roomId});
   String Apartmentname;
   String locality;
   String rentPrice;
@@ -14,6 +16,8 @@ class homescreenTile extends StatefulWidget {
   String accomodation_type;
   String imgList;
   String perks;
+  String accid;
+  String roomId;
 
 
   @override
@@ -279,7 +283,9 @@ class _homescreenTileState extends State<homescreenTile> {
                       // SizedBox(width: 5,),
                       Text('${widget.accomodation_type}'),
                       InkWell(
-                        onTap: (){},
+                        onTap: (){
+                          Navigator.push(context,MaterialPageRoute(builder: (context)=>scheduleVisit(accid: widget.accid, roomid: widget.roomId)));
+                        },
                         child: Container(
                             width: 115,
                             height: 40,

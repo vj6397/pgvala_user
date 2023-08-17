@@ -41,8 +41,9 @@ class _MyAppState extends State<MyApp> {
   }
   Future<void> get_token() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    ktoken=prefs.getString('token');
+    ktoken=prefs.getString('token2');
   }
+
   @override
   initState(){
     super.initState();

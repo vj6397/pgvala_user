@@ -1,14 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 import 'package:otp_text_field/style.dart';
-
 import 'package:http/http.dart'as http;
 import 'package:pgvala_user/selectCity.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../Api/requestUtil.dart';
 import '../location_list.dart';
 
@@ -130,6 +129,12 @@ class _OtpVerifyState extends State<OtpVerify> {
                         http.Response res= await util.login(widget.number.toString(), _otp);
                         if(res.statusCode==200){
                           print(res.body);
+                          Map<String, dynamic> l=jsonDecode(res.body);
+                          var token='Bearer '+l["access_token"];
+                          print(token);
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          prefs.setString('token2', token);
+                          ktoken=token;
                           var shr=await SharedPreferences.getInstance();
                           shr.setBool(keyVal, true);
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>selectCity()));

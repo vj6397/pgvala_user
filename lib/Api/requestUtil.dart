@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
+import '../location_list.dart';
+
 class RequestUtil{
   final endpoint='https://davaivala.shop/';
-  final token='Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MjMyODkxMTIsImlhdCI6MTY5MTc1MzExMiwic2NvcGUiOiJhY2Nlc3NfdG9rZW4iLCJzdWIiOiIxIn0.3-KvHCHUgbOBNo7wxI5Zz83DRg2tWDz6vNkjf3riVWM';
+  //final token='Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE3MjMyODkxMTIsImlhdCI6MTY5MTc1MzExMiwic2NvcGUiOiJhY2Nlc3NfdG9rZW4iLCJzdWIiOiIxIn0.3-KvHCHUgbOBNo7wxI5Zz83DRg2tWDz6vNkjf3riVWM';
+  final token=ktoken;
 
   Future<http.Response> register_user (name,contact,city,state,address,username,
       dob,profession,working_place,course){
@@ -91,7 +94,7 @@ class RequestUtil{
     );
   }
   Future<http.Response> cancelVisit(entry_id) async{
-    return  http.get(Uri.parse(endpoint+'cancel_schedule/?id=$entry_id'),
+    return  http.put(Uri.parse(endpoint+'cancel_schedule/?id=$entry_id'),
       headers: {'Authorization': token},
     );
   }

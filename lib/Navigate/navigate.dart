@@ -20,7 +20,7 @@ class _NavigationScreenState extends State<NavigationScreen> {
   void initState() {
     super.initState();
     screens = [
-      homeScreen(city: widget.city),
+      homeScreen(city: widget.city,currIndx: 0,),
       qr(),
       bookingPage(),
     ];

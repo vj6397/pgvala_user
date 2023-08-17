@@ -1,8 +1,11 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:pgvala_user/Api/requestUtil.dart';
-import 'package:pgvala_user/circularProgressIndicator/circularIndicatorPage.dart';
+import 'package:pgvala_user/circularIndicatorPage/circularIndicatorPage.dart';
+import 'package:pgvala_user/main.dart';
 
 
 class bookingTile extends StatefulWidget {
@@ -15,6 +18,7 @@ class bookingTile extends StatefulWidget {
   String address;
   String entry_id;
   String status;
+
 
 
   @override
@@ -55,8 +59,14 @@ class _bookingTileState extends State<bookingTile> {
                         ),
                         InkWell(
                           onTap: () async{
-                           http.Response response = await util.cancelVisit(widget.entry_id);
-                           Navigator.push(context,MaterialPageRoute(builder: (context)=>circularProgressIndicator()));
+                            http.Response response = await util.cancelVisit(widget.entry_id);
+                            if(response.statusCode==200){
+                              print(response.body);
+                              Navigator.push(context,MaterialPageRoute(builder: (context)=>MyApp()));
+                            }
+                            else {
+                              print(response.body);
+                            }
                           },
                           child: Container(
                             margin: EdgeInsets.only(top: 5),

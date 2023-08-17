@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:pgvala_user/user/bookingPage.dart';
 
+import '../main.dart';
+
 
 
 class circularProgressIndicator extends StatefulWidget {
@@ -16,7 +18,7 @@ class _circularProgressIndicatorState extends State<circularProgressIndicator> {
     // TODO: implement initState
     super.initState();
     Future.delayed(Duration(seconds: 3),(){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>bookingPage()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MyApp()));
     });
   }
   @override

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:pgvala_user/Navigate/navigate.dart';
@@ -115,7 +116,21 @@ class _selectCityState extends State<selectCity> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationScreen(currIndx: 0, city:dropdownvalue!)));
+                      if(dropdownvalue!=null){
+                        Navigator.push(context,MaterialPageRoute(builder: (context)=>NavigationScreen(currIndx: 0, city:dropdownvalue!)));
+                      }
+                      else {
+                        Fluttertoast.showToast(
+                            msg: "Select city",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1,
+                            backgroundColor: Colors.grey,
+                            textColor: Colors.white,
+                            fontSize: 16.0
+                        );
+                      }
+
                     },
                     child: Container(
                       height: 38,
